@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  password      String
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  orders        Order[]
+  carts         Cart[]
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?   @db.Text
+  imageUrl    String?   @db.Text
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id                String              @id @default(cuid())
+  name              String
+  slug              String              @unique
+  description       String?             @db.Text
+  basePrice         Decimal             @db.Decimal(10, 2)
+  images            Json                // Store images as a JSON array
+  customizableAreas CustomizableArea[]
+  category          Category            @relation(fields: [categoryId], references: [id])
+  categoryId        String
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  orderItems        OrderItem[]
+  cartItems         CartItem[]
+}
+
+model CustomizableArea {
+  id          String             @id @default(cuid())
+  name        String
+  type        CustomizationType
+  product     Product            @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId   String
+  extraCharge Decimal?           @db.Decimal(10, 2)
+}
+
+enum CustomizationType {
+  TEXT
+  IMAGE
+  COLOR
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  user       User        @relation(fields: [userId], references: [id])
+  userId     String
+  status     OrderStatus @default(PENDING)
+  total      Decimal     @db.Decimal(10, 2)
+  items      OrderItem[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+model OrderItem {
+  id                String   @id @default(cuid())
+  order             Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId           String
+  product           Product  @relation(fields: [productId], references: [id])
+  productId         String
+  quantity          Int
+  price             Decimal  @db.Decimal(10, 2)
+  customizations    Json?    // JSON data of customizations
+  createdAt         DateTime @default(now())
+}
+
+model Cart {
+  id         String     @id @default(cuid())
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  items      CartItem[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+}
+
+model CartItem {
+  id               String   @id @default(cuid())
+  cart             Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  cartId           String
+  product          Product  @relation(fields: [productId], references: [id])
+  productId        String
+  quantity         Int
+  customizations   Json?    // JSON data of customizations
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@unique([cartId, productId])
+}
