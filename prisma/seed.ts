@@ -20,19 +20,19 @@ async function main() {
   // Create categories
   const categories = [
     {
-      name: 'T-Shirts',
+      name: 'Padalustro T-Shirts',
       slug: 't-shirts',
       description: 'Customizable t-shirts for all occasions',
       imageUrl: '/images/categories/t-shirts.jpg',
     },
     {
-      name: 'Mugs',
+      name: 'Uxiono Mugs',
       slug: 'mugs',
       description: 'Personalized mugs for your morning coffee',
       imageUrl: '/images/categories/mugs.jpg',
     },
     {
-      name: 'Posters',
+      name: 'Cupo Posters',
       slug: 'posters',
       description: 'Custom posters to decorate your space',
       imageUrl: '/images/categories/posters.jpg',
