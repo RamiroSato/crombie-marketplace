@@ -67,15 +67,24 @@ async function main() {
   // Create products
   const products = [
     {
-      name: 'Classic T-Shirt',
-      slug: 'classic-t-shirt',
-      description: 'A comfortable classic t-shirt that you can customize with your own designs',
+      name: 'Padalustro T-Shirt',
+      slug: 'padalustro-t-shirt',
+      description: 'A comfortable Padalustro t-shirt that you can customize with your own designs',
       basePrice: 19.99,
-      images: ['/images/products/classic-t-shirt-1.jpg', '/images/products/classic-t-shirt-2.jpg'],
+      images: ['/images/products/Padalustro-t-shirt-1.jpg', '/images/products/Padalustro-t-shirt-2.jpg'],
       categoryId: tShirtCategory.id,
       customizableAreas: [
-        { name: 'Front Print', type: CustomizationType.IMAGE, extraCharge: 5.00 },
-        { name: 'Back Print', type: CustomizationType.IMAGE, extraCharge: 5.00 },
+        { name: 'Text', type: CustomizationType.TEXT, extraCharge: 2.50 }
+      ],
+    },
+    {
+      name: 'Classic T-Shirt',
+      slug: 'padalustro-t-shirt',
+      description: 'A comfortable Padalustro t-shirt that you can customize with your own designs',
+      basePrice: 19.99,
+      images: ['/images/products/Padalustro-t-shirt-1.png', '/images/products/Padalustro-t-shirt-2.png'],
+      categoryId: tShirtCategory.id,
+      customizableAreas: [
         { name: 'Text', type: CustomizationType.TEXT, extraCharge: 2.50 },
         { name: 'Shirt Color', type: CustomizationType.COLOR, extraCharge: 0.00 },
       ],
@@ -85,7 +94,7 @@ async function main() {
       slug: 'premium-mug',
       description: 'High-quality ceramic mug perfect for personalization',
       basePrice: 14.99,
-      images: ['/images/products/premium-mug-1.jpg', '/images/products/premium-mug-2.jpg'],
+      images: ['/images/products/premium-mug-1.png', '/images/products/premium-mug-2.png'],
       categoryId: mugCategory.id,
       customizableAreas: [
         { name: 'Front Image', type: CustomizationType.IMAGE, extraCharge: 3.00 },
@@ -98,7 +107,7 @@ async function main() {
       slug: 'art-poster',
       description: 'Premium quality poster paper for your custom designs',
       basePrice: 24.99,
-      images: ['/images/products/art-poster-1.jpg', '/images/products/art-poster-2.jpg'],
+      images: ['/images/products/art-poster.jpg'],
       categoryId: posterCategory.id,
       customizableAreas: [
         { name: 'Main Image', type: CustomizationType.IMAGE, extraCharge: 7.50 },

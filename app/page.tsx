@@ -42,7 +42,7 @@ export default async function HomePage() {
             src="/images/hero-bg.jpg"
             alt="Personalized Products"
           />
-          <div className="absolute inset-0 bg-indigo-800 mix-blend-multiply" aria-hidden="true"></div>
+          <div className="absolute inset-0 bg-gray-200 mix-blend-multiply" aria-hidden="true"></div>
         </div>
         <div className="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
