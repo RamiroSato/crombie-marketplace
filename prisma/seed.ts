@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { CustomizationType, PrismaClient } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
@@ -20,19 +20,19 @@ async function main() {
   // Create categories
   const categories = [
     {
-      name: 'Padalustro T-Shirts',
+      name: 'T-Shirts',
       slug: 't-shirts',
       description: 'Customizable t-shirts for all occasions',
       imageUrl: '/images/categories/t-shirts.jpg',
     },
     {
-      name: 'Uxiono Mugs',
+      name: 'Mugs',
       slug: 'mugs',
       description: 'Personalized mugs for your morning coffee',
       imageUrl: '/images/categories/mugs.jpg',
     },
     {
-      name: 'Cupo Posters',
+      name: 'Posters',
       slug: 'posters',
       description: 'Custom posters to decorate your space',
       imageUrl: '/images/categories/posters.jpg',
@@ -74,10 +74,10 @@ async function main() {
       images: ['/images/products/classic-t-shirt-1.jpg', '/images/products/classic-t-shirt-2.jpg'],
       categoryId: tShirtCategory.id,
       customizableAreas: [
-        { name: 'Front Print', type: 'IMAGE', extraCharge: 5.00 },
-        { name: 'Back Print', type: 'IMAGE', extraCharge: 5.00 },
-        { name: 'Text', type: 'TEXT', extraCharge: 2.50 },
-        { name: 'Shirt Color', type: 'COLOR', extraCharge: 0.00 },
+        { name: 'Front Print', type: CustomizationType.IMAGE, extraCharge: 5.00 },
+        { name: 'Back Print', type: CustomizationType.IMAGE, extraCharge: 5.00 },
+        { name: 'Text', type: CustomizationType.TEXT, extraCharge: 2.50 },
+        { name: 'Shirt Color', type: CustomizationType.COLOR, extraCharge: 0.00 },
       ],
     },
     {
@@ -88,9 +88,9 @@ async function main() {
       images: ['/images/products/premium-mug-1.jpg', '/images/products/premium-mug-2.jpg'],
       categoryId: mugCategory.id,
       customizableAreas: [
-        { name: 'Front Image', type: 'IMAGE', extraCharge: 3.00 },
-        { name: 'Custom Text', type: 'TEXT', extraCharge: 1.50 },
-        { name: 'Mug Color', type: 'COLOR', extraCharge: 0.00 },
+        { name: 'Front Image', type: CustomizationType.IMAGE, extraCharge: 3.00 },
+        { name: 'Custom Text', type: CustomizationType.TEXT, extraCharge: 1.50 },
+        { name: 'Mug Color', type: CustomizationType.COLOR, extraCharge: 0.00 },
       ],
     },
     {
@@ -101,8 +101,8 @@ async function main() {
       images: ['/images/products/art-poster-1.jpg', '/images/products/art-poster-2.jpg'],
       categoryId: posterCategory.id,
       customizableAreas: [
-        { name: 'Main Image', type: 'IMAGE', extraCharge: 7.50 },
-        { name: 'Caption', type: 'TEXT', extraCharge: 2.00 },
+        { name: 'Main Image', type: CustomizationType.IMAGE, extraCharge: 7.50 },
+        { name: 'Caption', type: CustomizationType.TEXT, extraCharge: 2.00 },
       ],
     },
   ];
