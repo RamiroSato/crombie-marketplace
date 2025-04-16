@@ -29,7 +29,7 @@ interface WhereClause {
         gte?: number;
         lte?: number;
     };
-    OR?: Array<{ name?: { contains: string; mode: string }; description?: { contains: string; mode: string } }> | undefined;
+    name?: { contains: string; };
 }
 
 interface OrderByClause {
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: { params: { category: string 
   // Fetch category data
   const category = await prisma.category.findUnique({
     where: {
-      slug: params.category,
+      slug: (await params).category,
     },
   });
 
@@ -78,12 +78,16 @@ export async function generateStaticParams() {
 }
 
 export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
-  const { category: categorySlug } = params;
-  const page = Number(searchParams.page) || 1;
-  const sort = searchParams.sort || 'newest';
-  const minPrice = searchParams.min ? parseFloat(searchParams.min) : undefined;
-  const maxPrice = searchParams.max ? parseFloat(searchParams.max) : undefined;
-  const search = searchParams.search || '';
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
+
+  const { category: categorySlug } = resolvedParams;
+  const page = Number(resolvedSearchParams.page) || 1;
+  const sort = resolvedSearchParams.sort || 'newest';
+  const minPrice = resolvedSearchParams.min ? parseFloat(resolvedSearchParams.min) : undefined;
+  const maxPrice = resolvedSearchParams.max ? parseFloat(resolvedSearchParams.max) : undefined;
+  const search = resolvedSearchParams.search || '';
+  console.log('Search:', search);
 
   // Fetch category with count of products
   const category = await prisma.category.findUnique({
@@ -122,12 +126,11 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   }
 
   // Search filter
-  if (search) {
-    whereClause.OR = [
-      { name: { contains: search, mode: 'insensitive' } },
-      { description: { contains: search, mode: 'insensitive' } },
-    ];
-  }
+  // if (search) {
+  //   whereClause.name = 
+  //     { contains: search, mode: 'insensitive' };
+  // }
+  whereClause.name = search ? { contains: search } : undefined;
 
   // Determine sort order
   let orderBy: OrderByClause = {};
@@ -149,12 +152,12 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   }
 
   // Count total products with filters
-  const totalProducts = await prisma.product.count({
+  const totalProducts = (await prisma.product)?.count({
     where: whereClause,
   });
 
   // Calculate pagination values
-  const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil((await totalProducts) / ITEMS_PER_PAGE);
   const skip = (page - 1) * ITEMS_PER_PAGE;
 
   // Fetch products with pagination and sorting
@@ -271,7 +274,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
                     name="search"
                     id="search"
                     defaultValue={search}
-                    className="flex-1 block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="flex-1 block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1 text-black sm:text-sm"
                     placeholder="Search products..."
                   />
                   <button
@@ -302,7 +305,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
                       defaultValue={minPrice}
                       min={Math.floor(Number(priceRanges._min.basePrice || 0))}
                       step="0.01"
-                      className="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1 text-black sm:text-sm"
                       placeholder="Min"
                     />
                   </div>
@@ -315,7 +318,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
                       defaultValue={maxPrice}
                       max={Math.ceil(Number(priceRanges._max.basePrice || 1000))}
                       step="0.01"
-                      className="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1 text-black sm:text-sm"
                       placeholder="Max"
                     />
                   </div>
@@ -354,19 +357,18 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
               Showing <span className="font-medium">{products.length}</span> of <span className="font-medium">{totalProducts}</span> products
             </p>
             <div className="flex items-center">
-              <label htmlFor="sort" className="text-sm font-medium text-gray-700 mr-2">
+              <label htmlFor="sort" className="text-sm font-medium text-gray-700 px-2 py-1 text-black mr-2">
                 Sort by
               </label>
-              {/* Use client component for the sort dropdown */}
-              <SortDropdown 
+                <SortDropdown 
                 sortOptions={sortOptions}
                 currentSort={sort}
                 baseUrl={`/categories/${categorySlug}`}
                 searchParams={Object.fromEntries(
                   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                  Object.entries(searchParams).filter(([k, v]) => v !== undefined)
+                  Object.entries(await searchParams).filter(([k, v]) => v !== undefined)
                 )}
-              />
+                />
             </div>
           </div>
           
