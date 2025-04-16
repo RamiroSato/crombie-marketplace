@@ -39,7 +39,7 @@ RUN npx prisma generate
 RUN npx prisma migrate deploy
 
 # Build app
-#UN npm run build
+RUN npm run build
 
 # Expose the listening port
 EXPOSE 3000
