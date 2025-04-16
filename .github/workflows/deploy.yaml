@@ -10,7 +10,7 @@ on:
 
 jobs:
   # Add a MySQL service for testing
-  build-and-test:
+  deploy-to-cloud-run:
     runs-on: ubuntu-latest
     
     services:
@@ -60,12 +60,12 @@ jobs:
         id: deploy-condition
         run: echo "should_deploy=true" >> $GITHUB_OUTPUT
 
-  deploy-to-cloud-run:
-    needs: build-and-test
-    if: needs.build-and-test.outputs.should_deploy == 'true'
-    runs-on: ubuntu-latest
+  # deploy-to-cloud-run:
+  #   needs: build-and-test
+  #   if: needs.build-and-test.outputs.should_deploy == 'true'
+  #   runs-on: ubuntu-latest
     
-    steps:
+  #   steps:
       - name: Checkout code
         uses: actions/checkout@v3
         
