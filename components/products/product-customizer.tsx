@@ -336,7 +336,7 @@ export default function ProductCustomizer({ product }: ProductCustomizerProps) {
               onClick={addToCart}
               disabled={isAddingToCart}
               className={`px-6 py-3 rounded-md bg-indigo-600 text-white font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
-                isAddingToCart ? 'opacity-75 cursor-not-allowed' : ''
+                isAddingToCart ? 'opacity-75 cursor-not-allowed pointer-events-none' : 'cursor-pointer'
               }`}
             >
               {isAddingToCart ? (

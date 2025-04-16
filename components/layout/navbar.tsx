@@ -102,7 +102,7 @@ export default function Navbar() {
                 <div>
                   <button
                     type="button"
-                    className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer focus:ring-indigo-500"
                     id="user-menu-button"
                     aria-expanded={isMenuOpen}
                     aria-haspopup="true"
