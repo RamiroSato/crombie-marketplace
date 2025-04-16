@@ -13,17 +13,21 @@ jobs:
   deploy-to-cloud-run:
     runs-on: ubuntu-latest
     
-    services:
-      mysql:
-        image: mysql:8
-        env:
-          MYSQL_DATABASE: crombie_marketplace_test
-          MYSQL_ROOT_PASSWORD: password
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    # services:
+    #   mysql:
+    #     image: mysql:8
+    #     env:
+    #       MYSQL_DATABASE: crombie_marketplace_test
+    #       MYSQL_ROOT_PASSWORD: password
+    #     ports:
+    #       - 3306:3306
+    #     options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     
     steps:
+
+      - name: curl
+        run: $ curl icanhazip.com OR $ curl -4 icanhazip.com OR $ curl -6 icanhazip.com
+       
       - name: Checkout code
         uses: actions/checkout@v3
       
@@ -68,7 +72,8 @@ jobs:
   #   steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        
+
+       
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v1
         with:
