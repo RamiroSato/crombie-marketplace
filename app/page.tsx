@@ -37,7 +37,7 @@ export default async function HomePage() {
       {/* Hero Section */}
       <div className="relative bg-indigo-800">
         <div className="absolute inset-0">
-          <img
+          <Image
             className="w-full h-full object-cover"
             src="/images/hero-bg.jpg"
             alt="Personalized Products"
@@ -78,7 +78,7 @@ export default async function HomePage() {
             >
               <div className="aspect-w-4 aspect-h-3 bg-gray-200">
                 {category.imageUrl ? (
-                  <img
+                  <Image
                     src={category.imageUrl}
                     alt={category.name}
                     className="w-full h-full object-center object-cover"
@@ -121,8 +121,8 @@ export default async function HomePage() {
               <div key={product.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
                 <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-200">
                   {Array.isArray(product.images) && product.images.length > 0 ? (
-                    <img
-                      src={typeof product.images[0] === 'string' ? product.images[0] : undefined}
+                    <Image
+                      src={typeof product.images[0] === 'string' ? product.images[0] : "images/fallback-image.png"}
                       alt={product.name}
                       className="w-full h-full object-center object-cover"
                     />
@@ -203,7 +203,7 @@ export default async function HomePage() {
             </div>
             <h3 className="text-xl font-medium text-gray-900 mb-2">3. Receive Your Order</h3>
             <p className="text-gray-500">
-              We'll produce your custom item and deliver it right to your doorstep.
+              We&apos;ll produce your custom item and deliver it right to your doorstep.
             </p>
           </div>
         </div>

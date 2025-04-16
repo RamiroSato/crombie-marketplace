@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/db';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -45,7 +46,7 @@ export default async function CategoriesPage() {
           >
             <div className="aspect-w-3 aspect-h-2 bg-gray-200">
               {category.imageUrl ? (
-                <img
+                <Image
                   src={category.imageUrl}
                   alt={category.name}
                   className="w-full h-full object-center object-cover group-hover:opacity-90 transition-opacity"

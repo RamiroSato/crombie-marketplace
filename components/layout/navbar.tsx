@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 interface User {
   id: string;
@@ -64,7 +65,7 @@ export default function Navbar() {
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
               <Link href="/" className='pr-1'>
-                  <img
+                  <Image
                   src="/images/crombie_logo.png"
                   alt="Crombie Logo"
                   className="h-8 w-auto"

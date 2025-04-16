@@ -354,7 +354,7 @@ export default function ProductCustomizer({ product }: ProductCustomizerProps) {
           </div>
           {!isAuthenticated && (
             <p className="mt-2 text-sm text-gray-500">
-              You'll need to log in before adding this item to your cart.
+              You&apos;ll need to log in before adding this item to your cart.
             </p>
           )}
         </div>

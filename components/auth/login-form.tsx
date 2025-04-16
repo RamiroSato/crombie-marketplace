@@ -1,14 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { z } from 'zod';
 import { loginUser } from '@/app/actions/login';
 import { LoginFormData } from '@/lib/validation';
 
 export default function LoginForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams?.get('callbackUrl') || '/';
   

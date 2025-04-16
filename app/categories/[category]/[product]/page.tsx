@@ -3,6 +3,8 @@ import { prisma } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import ProductCustomizer from '@/components/products/product-customizer';
 import { Metadata } from 'next';
+import Link from 'next/link';
+import Image from 'next/image';
 
 // Define types for params
 interface ProductPageParams {
@@ -100,9 +102,9 @@ export default async function ProductPage({ params }: ProductPageParams) {
       <nav className="flex mb-8" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
           <li className="inline-flex items-center">
-            <a href="/" className="text-sm text-gray-500 hover:text-gray-700">
+            <Link href="/" className="text-sm text-gray-500 hover:text-gray-700">
               Home
-            </a>
+            </Link>
           </li>
           <li>
             <div className="flex items-center">
@@ -151,8 +153,8 @@ export default async function ProductPage({ params }: ProductPageParams) {
               >
                 <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200">
                   {Array.isArray(relatedProduct.images) && relatedProduct.images.length > 0 ? (
-                    <img
-                      src={typeof relatedProduct.images[0] === 'string' ? relatedProduct.images[0] : undefined}
+                    <Image
+                      src={typeof relatedProduct.images[0] === 'string' ? relatedProduct.images[0] : 'images'}
                       alt={relatedProduct.name}
                       className="h-full w-full object-cover object-center group-hover:opacity-75"
                     />
