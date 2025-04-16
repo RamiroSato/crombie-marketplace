@@ -1,4 +1,3 @@
-// app/api/cart/items/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { withErrorHandling, parseRequestBody } from '@/lib/api-middleware';
 import { DatabaseError, AuthError, UserInputError, NotFoundError } from '@/lib/errors';
@@ -8,9 +7,13 @@ import { verifyAuth } from '@/lib/auth';
 // Update cart item
 export const PUT = withErrorHandling(async (
   req: NextRequest,
-  params?: Record<string, string | string[]>
+  // params?: Record<string, string | string[]>
 ) => {
-  const { id } = params as { id: string };
+  const url = new URL(req.url);
+  const id = url.pathname.split('items/').pop(); // Get the last segment of the path, had to use this because params id is undefined, even though it is shown when I log it in the console (just Jacvascript things I guess)
+
+  console.log('Extracted id:', id);
+
 
   // Authenticate the user
   const user = await verifyAuth();
@@ -92,9 +95,19 @@ export const PUT = withErrorHandling(async (
 // Delete cart item
 export const DELETE = withErrorHandling(async (
   req: NextRequest,
-  params?: Record<string, string | string[]>
+  // params?: Record<string, string | string[]>
 ) => {
-  const { id } = params as { id: string };
+  const url = new URL(req.url);
+  const id = url.pathname.split('items/').pop(); // Get the last segment of the path
+  //remove the trailing slash if it exists
+
+  console.log('Extracted id:', id);
+
+
+
+  if (!id) {
+    throw new UserInputError('Cart item ID is required');
+  }
 
   // Authenticate the user
   const user = await verifyAuth();

@@ -53,9 +53,10 @@ export const GET = withErrorHandling(async (/*req: NextRequest*/) => {
     // Calculate totals and process items
     const items = cart.items.map(item => {
       // Parse customizations from JSON string if it exists
-      const customizations = item.customizations 
-        ? JSON.parse(item.customizations as string) 
-        : [];
+      const customizations =
+        typeof item.customizations === 'string'
+          ? JSON.parse(item.customizations)
+          : item.customizations || [];
       
       // Calculate item total
       const itemPrice = Number(item.product.basePrice);

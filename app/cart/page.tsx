@@ -337,7 +337,7 @@ export default function CartPage() {
                       disabled={isProcessing}
                       className="rounded-md border-gray-300 py-1.5 text-base leading-5 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     >
-                      {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                         <option key={num} value={num}>
                           {num === 0 ? 'Remove' : num}
                         </option>
