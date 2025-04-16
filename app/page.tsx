@@ -41,6 +41,7 @@ export default async function HomePage() {
             className="w-full h-full object-cover"
             src="/images/hero-bg.jpg"
             alt="Personalized Products"
+            crossOrigin='anonymous'
           />
           <div className="absolute inset-0 bg-gray-200 mix-blend-multiply" aria-hidden="true"></div>
         </div>

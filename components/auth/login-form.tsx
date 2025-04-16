@@ -120,7 +120,7 @@ export default function LoginForm() {
             required
             value={formData.email}
             onChange={handleChange}
-            className={`mt-1 block w-full rounded-md shadow-sm ${
+            className={`text-xl mt-1 block w-full rounded-md shadow-sm py-1 px-2 text-black ${
               errors.email 
                 ? 'border-red-300 focus:border-red-500 focus:ring-red-500' 
                 : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
@@ -143,7 +143,7 @@ export default function LoginForm() {
             required
             value={formData.password}
             onChange={handleChange}
-            className={`mt-1 block w-full rounded-md shadow-sm ${
+            className={`text-xl mt-1 block w-full rounded-md shadow-sm py-1 px-2 text-black ${
               errors.password 
                 ? 'border-red-300 focus:border-red-500 focus:ring-red-500' 
                 : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'

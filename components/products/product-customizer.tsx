@@ -248,7 +248,7 @@ export default function ProductCustomizer({ product }: ProductCustomizerProps) {
                 {area.type === 'TEXT' && (
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-black py-1 px-2 bg-white sm:text-sm"
                     placeholder={`Enter text for ${area.name}`}
                     value={customizations.find(c => c.areaId === area.id)?.value || ''}
                     onChange={(e) => handleCustomizationChange(area.id, e.target.value)}

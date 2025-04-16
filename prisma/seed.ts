@@ -23,19 +23,19 @@ async function main() {
       name: 'T-Shirts',
       slug: 't-shirts',
       description: 'Customizable t-shirts for all occasions',
-      imageUrl: '/images/categories/t-shirts.jpg',
+      imageUrl: 'https://storage.googleapis.com/crombie-marketplace-bucket/categories/t-shirts.jpg',
     },
     {
       name: 'Mugs',
       slug: 'mugs',
       description: 'Personalized mugs for your morning coffee',
-      imageUrl: '/images/categories/mugs.jpg',
+      imageUrl: 'https://storage.googleapis.com/crombie-marketplace-bucket/categories/mugs.jpg',
     },
     {
       name: 'Posters',
       slug: 'posters',
       description: 'Custom posters to decorate your space',
-      imageUrl: '/images/categories/posters.jpg',
+      imageUrl: 'https://storage.googleapis.com/crombie-marketplace-bucket/categories/posters.jpg',
     },
   ];
 
@@ -66,35 +66,27 @@ async function main() {
 
   // Create products
   const products = [
-    {
-      name: 'Padalustro T-Shirt',
-      slug: 'padalustro-t-shirt',
-      description: 'A comfortable Padalustro t-shirt that you can customize with your own designs',
-      basePrice: 19.99,
-      images: ['/images/products/Padalustro-t-shirt-1.jpg', '/images/products/Padalustro-t-shirt-2.jpg'],
-      categoryId: tShirtCategory.id,
-      customizableAreas: [
-        { name: 'Text', type: CustomizationType.TEXT, extraCharge: 2.50 }
-      ],
-    },
+    
     {
       name: 'Classic T-Shirt',
-      slug: 'padalustro-t-shirt',
+      slug: 'classic-t-shirt',
       description: 'A comfortable Padalustro t-shirt that you can customize with your own designs',
       basePrice: 19.99,
-      images: ['/images/products/Padalustro-t-shirt-1.png', '/images/products/Padalustro-t-shirt-2.png'],
+      images: ['https://storage.googleapis.com/crombie-marketplace-bucket/categories/t-shirts.jpg'],
       categoryId: tShirtCategory.id,
       customizableAreas: [
+        { name: 'Front Print', type: CustomizationType.IMAGE, extraCharge: 5.00 },
+        { name: 'Back Print', type: CustomizationType.IMAGE, extraCharge: 5.00 },
         { name: 'Text', type: CustomizationType.TEXT, extraCharge: 2.50 },
         { name: 'Shirt Color', type: CustomizationType.COLOR, extraCharge: 0.00 },
       ],
     },
     {
-      name: 'Premium Mug',
-      slug: 'premium-mug',
-      description: 'High-quality ceramic mug perfect for personalization',
+      name: 'Classic Mug',
+      slug: 'classic-mug',
+      description: 'Yes! Game Over, you just lost the game! Troll your friends or co-worker with this exclusive mug',
       basePrice: 14.99,
-      images: ['/images/products/premium-mug-1.png', '/images/products/premium-mug-2.png'],
+      images: ['https://storage.googleapis.com/crombie-marketplace-bucket/categories/mugs.jpg'],
       categoryId: mugCategory.id,
       customizableAreas: [
         { name: 'Front Image', type: CustomizationType.IMAGE, extraCharge: 3.00 },
@@ -103,17 +95,60 @@ async function main() {
       ],
     },
     {
+      name: 'Classic Poster',
+      slug: 'Classic-poster',
+      description: 'Premium quality small poster paper for your custom designs',
+      basePrice: 4.99,
+      images: ['https://storage.googleapis.com/crombie-marketplace-bucket/categories/posters.jpg'],
+      categoryId: posterCategory.id,
+      customizableAreas: [],
+    },
+    {
+      name: 'Premium Mug',
+      slug: 'premium-mug',
+      description: 'High-quality premium ceramic mug perfect',
+      basePrice: 9.99,
+      images: ['https://storage.googleapis.com/crombie-marketplace-bucket/products/premium-mug-1.png', 'https://storage.googleapis.com/crombie-marketplace-bucket/products/premium-mug-2.png'],
+      categoryId: mugCategory.id,
+      customizableAreas: [],
+    },
+    {
+      name: 'The Game Mug',
+      slug: 'the-game-mug',
+      description: 'Yes! Game Over, you just lost the game! Troll your friends or co-worker with this exclusive mug',
+      basePrice: 14.99,
+      images: ['https://storage.googleapis.com/crombie-marketplace-bucket/products/the-game-mug-1.png'],
+      categoryId: mugCategory.id,
+      customizableAreas: [],
+    },
+    
+    {
       name: 'Art Poster',
       slug: 'art-poster',
-      description: 'Premium quality poster paper for your custom designs',
-      basePrice: 24.99,
-      images: ['/images/products/art-poster.jpg'],
+      description: 'Premium quality Art poster paper',
+      basePrice: 9.99,
+      images: ['https://storage.googleapis.com/crombie-marketplace-bucket/products/art-poster-1.jpg', 'https://storage.googleapis.com/crombie-marketplace-bucket/products/art-poster-2.jpg'],
       categoryId: posterCategory.id,
-      customizableAreas: [
-        { name: 'Main Image', type: CustomizationType.IMAGE, extraCharge: 7.50 },
-        { name: 'Caption', type: CustomizationType.TEXT, extraCharge: 2.00 },
-      ],
+      customizableAreas: [],
     },
+    {
+      name: 'Padalustro T-Shirt',
+      slug: 'padalustro-t-shirt',
+      description: 'An Exclusive Padalustro t-shirt that you can customize with your own designs',
+      basePrice: 29.99,
+      images: ['https://storage.googleapis.com/crombie-marketplace-bucket/products/padalustro-t-shirt-1.jpg', 'https://storage.googleapis.com/crombie-marketplace-bucket/products/padalustro-t-shirt-2.jpg'],
+      categoryId: tShirtCategory.id,
+      customizableAreas: [],
+    },
+    {
+      name: 'Tralalero Trala T-Shirt',
+      slug: 'tralalero-t-shirt',
+      description: 'Trallallero Trallalla, porco dio e porco Allah. Ero con il mio fottuto figlio merdardo a giocare a Fortnite, quando a un punto arriva mia nonna, Ornella Leccacappella, a avvisarci che quello stronzo di Burger ci aveva invitato a cena per mangiare un purè di cazzi.',
+      basePrice: 69.99,
+      images: ['https://storage.googleapis.com/crombie-marketplace-bucket/products/tralalero-t-shirt.jpg', 'https://storage.googleapis.com/crombie-marketplace-bucket/products/tralalero-model-t-shirt.jpg' , 'https://storage.googleapis.com/crombie-marketplace-bucket/products/tralalero-female-model-t-shirt.jpg'],
+      categoryId: tShirtCategory.id,
+      customizableAreas: [],
+    }
   ];
 
   for (const product of products) {
