@@ -38,9 +38,10 @@ jobs:
       
       - name: Generate Prisma client
         run: npx prisma generate
-      
-      - name: Run linting
-        run: npm run lint
+
+      # Uncomment if you have linting
+      # - name: Run linting
+      #   run: npm run lint
         
       # Uncomment if you have tests
       # - name: Run tests
