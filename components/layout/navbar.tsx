@@ -3,7 +3,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { /*useRouter,*/ redirect, RedirectType } from 'next/navigation';
+import Image from 'next/image';
 
 interface User {
   id: string;
@@ -16,7 +17,7 @@ export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const router = useRouter();
+  // const router = useRouter();
 
   // Fetch the current user
   useEffect(() => {
@@ -48,9 +49,9 @@ export default function Navbar() {
       });
 
       if (response.ok) {
+
         setUser(null);
-        router.push('/');
-        router.refresh();
+        redirect('/', RedirectType.push);
       }
     } catch (error) {
       console.error('Error logging out:', error);
@@ -64,11 +65,12 @@ export default function Navbar() {
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
               <Link href="/" className='pr-1'>
-                  <img
+                <Image
+                  width={1000} height={1000}
                   src="/images/crombie_logo.png"
                   alt="Crombie Logo"
                   className="h-8 w-auto"
-                  />
+                />
               </Link>
               <Link href="/" className="text-xl font-bold text-indigo-600">
 
@@ -77,13 +79,13 @@ export default function Navbar() {
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               {/* Desktop navigation links */}
-              <Link 
+              <Link
                 href="/"
                 className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
               >
                 Home
               </Link>
-              <Link 
+              <Link
                 href="/categories"
                 className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
               >
@@ -172,7 +174,7 @@ export default function Navbar() {
               </div>
             )}
           </div>
-          
+
           {/* Mobile menu button */}
           <div className="flex items-center sm:hidden">
             <button

@@ -5,7 +5,7 @@ import * as bcrypt from 'bcryptjs';
 import { prisma } from '@/lib/db';
 import { loginSchema, type LoginFormData } from '@/lib/validation';
 import { setUserCookie } from '@/lib/auth';
-import { redirect } from 'next/navigation';
+import { redirect, RedirectType } from 'next/navigation';
 
 export async function loginUser(formData: LoginFormData) {
   // Validate form data
@@ -51,7 +51,7 @@ export async function loginUser(formData: LoginFormData) {
     });
     
     // Redirect to home page
-    redirect('/');
+    redirect('/', RedirectType.push);
     
   } catch (error) {
     console.error('Login error:', error);

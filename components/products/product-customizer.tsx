@@ -185,12 +185,10 @@ export default function ProductCustomizer({ product }: ProductCustomizerProps) {
       <div>
         <div className="relative h-80 overflow-hidden rounded-lg mb-4">
           {activeImage ? (
-            <Image
+            <Image width={1000} height={1000}
               src={activeImage}
               alt={product.name}
               className="w-full h-full object-contain"
-              width={500}
-              height={500}
             />
           ) : (
             <div className="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -354,7 +352,7 @@ export default function ProductCustomizer({ product }: ProductCustomizerProps) {
           </div>
           {!isAuthenticated && (
             <p className="mt-2 text-sm text-gray-500">
-              You'll need to log in before adding this item to your cart.
+              You&apos;ll need to log in before adding this item to your cart.
             </p>
           )}
         </div>

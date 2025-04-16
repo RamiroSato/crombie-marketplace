@@ -2,6 +2,7 @@ import { verifyAuth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { Metadata } from 'next';
 import { prisma } from '@/lib/db';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'My Profile - Crombie Marketplace',
@@ -132,11 +133,11 @@ export default async function ProfilePage() {
           </div>
         ) : (
           <div className="bg-white shadow overflow-hidden sm:rounded-lg p-6 text-center">
-            <p className="text-gray-500">You haven't placed any orders yet.</p>
-            <a href="/categories" className="mt-4 inline-block text-sm font-medium text-indigo-600 hover:text-indigo-500">
+            <p className="text-gray-500">You haven&apos;t placed any orders yet.</p>
+            <Link href="/categories" className="mt-4 inline-block text-sm font-medium text-indigo-600 hover:text-indigo-500">
               Start shopping
               <span aria-hidden="true"> &rarr;</span>
-            </a>
+            </Link>
           </div>
         )}
       </div>

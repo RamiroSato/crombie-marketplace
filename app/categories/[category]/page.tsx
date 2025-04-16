@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import SortDropdown from '@/components/ui/sort-dropdown';
+import Image from 'next/image';
 
 // Define pagination limit
 const ITEMS_PER_PAGE = 12;
@@ -20,6 +21,21 @@ interface CategoryPageProps {
     max?: string;
     search?: string;
   };
+}
+
+interface WhereClause {
+    categoryId: string;
+    basePrice?: {
+        gte?: number;
+        lte?: number;
+    };
+    OR?: Array<{ name?: { contains: string; mode: string }; description?: { contains: string; mode: string } }> | undefined;
+}
+
+interface OrderByClause {
+    createdAt?: 'asc' | 'desc';
+    basePrice?: 'asc' | 'desc';
+    name?: 'asc' | 'desc';
 }
 
 // Generate metadata dynamically
@@ -87,8 +103,10 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
     notFound();
   }
 
+
+
   // Build where clause for filtering
-  const whereClause: any = {
+  const whereClause: WhereClause = {
     categoryId: category.id,
   };
 
@@ -112,7 +130,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   }
 
   // Determine sort order
-  let orderBy: any = {};
+  let orderBy: OrderByClause = {};
   switch (sort) {
     case 'newest':
       orderBy = { createdAt: 'desc' };
@@ -200,18 +218,18 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
       <nav className="flex mb-8" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
           <li className="inline-flex items-center">
-            <a href="/" className="text-sm text-gray-500 hover:text-gray-700">
+            <Link href="/" className="text-sm text-gray-500 hover:text-gray-700">
               Home
-            </a>
+            </Link>
           </li>
           <li>
             <div className="flex items-center">
               <svg className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path>
               </svg>
-              <a href="/categories" className="ml-1 text-sm text-gray-500 hover:text-gray-700 md:ml-2">
+              <Link href="/categories" className="ml-1 text-sm text-gray-500 hover:text-gray-700 md:ml-2">
                 Categories
-              </a>
+              </Link>
             </div>
           </li>
           <li aria-current="page">
@@ -318,12 +336,12 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
             
             {/* Clear filters */}
             <div className="border-t border-gray-200 pt-4">
-              <a
+              <Link
                 href={`/categories/${categorySlug}`}
                 className="text-sm text-indigo-600 hover:text-indigo-500"
               >
                 Clear all filters
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -345,6 +363,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
                 currentSort={sort}
                 baseUrl={`/categories/${categorySlug}`}
                 searchParams={Object.fromEntries(
+                  // eslint-disable-next-line @typescript-eslint/no-unused-vars
                   Object.entries(searchParams).filter(([k, v]) => v !== undefined)
                 )}
               />
@@ -359,8 +378,8 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
                   <Link href={`/categories/${categorySlug}/${product.slug}`}>
                     <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-200">
                       {Array.isArray(product.images) && product.images.length > 0 ? (
-                        <img
-                          src={typeof product.images[0] === 'string' ? product.images[0] : undefined}
+                        <Image width={1000} height={1000}
+                          src={typeof product.images[0] === 'string' ? product.images[0] : '/images/fallback-image.png'}
                           alt={product.name}
                           className="w-full h-full object-center object-cover"
                         />
@@ -397,12 +416,12 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
               <p className="text-gray-500 mb-4">
                 Try adjusting your search or filter criteria.
               </p>
-              <a
+              <Link
                 href={`/categories/${categorySlug}`}
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200"
               >
                 Clear all filters
-              </a>
+              </Link>
             </div>
           )}
           
@@ -411,7 +430,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
             <div className="flex items-center justify-center mt-8">
               <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
                 {/* Previous page */}
-                <a
+                <Link
                   href={page > 1 ? getFilterUrl({ page: page - 1 }) : '#'}
                   className={`relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium ${
                     page === 1 ? 'text-gray-300 cursor-not-allowed' : 'text-gray-500 hover:bg-gray-50'
@@ -421,11 +440,11 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
                   <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                </a>
+                </Link>
                 
                 {/* Page numbers */}
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-                  <a
+                  <Link
                     key={pageNum}
                     href={getFilterUrl({ page: pageNum })}
                     className={`relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium ${
@@ -433,11 +452,11 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
                     }`}
                   >
                     {pageNum}
-                  </a>
+                  </Link>
                 ))}
                 
                 {/* Next page */}
-                <a
+                <Link
                   href={page < totalPages ? getFilterUrl({ page: page + 1 }) : '#'}
                   className={`relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium ${
                     page === totalPages ? 'text-gray-300 cursor-not-allowed' : 'text-gray-500 hover:bg-gray-50'
@@ -447,7 +466,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
                   <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                   </svg>
-                </a>
+                </Link>
               </nav>
             </div>
           )}

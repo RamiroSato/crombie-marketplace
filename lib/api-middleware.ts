@@ -38,7 +38,7 @@ export function withErrorHandling(handler: ApiHandler): ApiHandler {
 export async function parseRequestBody<T>(req: NextRequest): Promise<T> {
   try {
     return await req.json() as T;
-  } catch (error) {
+  } catch {
     throw new UserInputError('Invalid JSON in request body');
   }
 }

@@ -1,17 +1,20 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+// import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { z } from 'zod';
 import { loginUser } from '@/app/actions/login';
 import { LoginFormData } from '@/lib/validation';
 
-export default function LoginForm() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams?.get('callbackUrl') || '/';
-  
+interface LoginFormProps {
+  callbackUrl: string;
+}
+
+export default function LoginForm({ callbackUrl }: LoginFormProps) {
+  // const searchParams = useSearchParams();
+  // if (!searchParams) {
+  //   throw new Error('searchParams is not available');
+  // }
   const [formData, setFormData] = useState<LoginFormData>({
     email: '',
     password: '',
@@ -212,7 +215,7 @@ export default function LoginForm() {
           </button>
         </div>
       </form>
-      
+{/*       
       <div className="mt-6">
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
@@ -254,7 +257,7 @@ export default function LoginForm() {
             </a>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
