@@ -13,8 +13,13 @@ interface User {
   role: string;
 }
 
+interface Cart {
+  itemCount: number;
+}
+
 export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
+  const [cart, setCart] = useState<Cart | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // const router = useRouter();
@@ -38,6 +43,27 @@ export default function Navbar() {
     fetchUser();
   }, []);
 
+  // Fetch cart data
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const response = await fetch('/api/cart');
+        if (response.ok) {
+          const data = await response.json();
+          setCart(data);
+        }
+      } catch (error) {
+        // Just silently fail if we can't fetch the cart
+        console.error('Error fetching cart:', error);
+      }
+    };
+
+    // Only fetch cart if user is logged in
+    if (user) {
+      fetchCart();
+    }
+  }, [user]);
+
   // Handle logout
   const handleLogout = async () => {
     try {
@@ -49,8 +75,8 @@ export default function Navbar() {
       });
 
       if (response.ok) {
-
         setUser(null);
+        setCart(null);
         redirect('/', RedirectType.push);
       }
     } catch (error) {
@@ -73,7 +99,6 @@ export default function Navbar() {
                 />
               </Link>
               <Link href="/" className="text-xl font-bold text-indigo-600">
-
                 Marketplace
               </Link>
             </div>
@@ -94,6 +119,18 @@ export default function Navbar() {
             </div>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
+            {/* Cart button for desktop */}
+            <Link href="/cart" className="mr-4 relative p-1 text-gray-500 hover:text-gray-700 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              {cart && cart.itemCount > 0 && (
+                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-indigo-600 rounded-full">
+                  {cart.itemCount}
+                </span>
+              )}
+            </Link>
+            
             {/* Desktop user menu */}
             {isLoading ? (
               <div className="h-8 w-8 rounded-full bg-gray-200 animate-pulse"></div>
@@ -241,6 +278,13 @@ export default function Navbar() {
             onClick={() => setIsMenuOpen(false)}
           >
             Categories
+          </Link>
+          <Link
+            href="/cart"
+            className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Cart {cart && cart.itemCount > 0 && `(${cart.itemCount})`}
           </Link>
         </div>
         <div className="pt-4 pb-3 border-t border-gray-200">
