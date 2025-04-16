@@ -43,3 +43,6 @@ next-env.d.ts
 # vscode
 /.vscode/*
 .vscode/*
+
+# google cloud credentials
+gcp-credentials.json
