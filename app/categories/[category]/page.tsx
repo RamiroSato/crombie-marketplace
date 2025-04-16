@@ -378,7 +378,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
                   <Link href={`/categories/${categorySlug}/${product.slug}`}>
                     <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-200">
                       {Array.isArray(product.images) && product.images.length > 0 ? (
-                        <Image
+                        <Image width={1000} height={1000}
                           src={typeof product.images[0] === 'string' ? product.images[0] : '/images/fallback-image.png'}
                           alt={product.name}
                           className="w-full h-full object-center object-cover"

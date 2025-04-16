@@ -153,7 +153,7 @@ export default async function ProductPage({ params }: ProductPageParams) {
               >
                 <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200">
                   {Array.isArray(relatedProduct.images) && relatedProduct.images.length > 0 ? (
-                    <Image
+                    <Image width={1000} height={1000}
                       src={typeof relatedProduct.images[0] === 'string' ? relatedProduct.images[0] : 'images'}
                       alt={relatedProduct.name}
                       className="h-full w-full object-cover object-center group-hover:opacity-75"

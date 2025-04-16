@@ -37,7 +37,7 @@ export default async function HomePage() {
       {/* Hero Section */}
       <div className="relative bg-indigo-800">
         <div className="absolute inset-0">
-          <Image
+          <Image width={1000} height={1000}
             className="w-full h-full object-cover"
             src="/images/hero-bg.jpg"
             alt="Personalized Products"
@@ -78,7 +78,7 @@ export default async function HomePage() {
             >
               <div className="aspect-w-4 aspect-h-3 bg-gray-200">
                 {category.imageUrl ? (
-                  <Image
+                  <Image width={1000} height={1000}
                     src={category.imageUrl}
                     alt={category.name}
                     className="w-full h-full object-center object-cover"
@@ -121,7 +121,7 @@ export default async function HomePage() {
               <div key={product.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
                 <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-200">
                   {Array.isArray(product.images) && product.images.length > 0 ? (
-                    <Image
+                    <Image width={1000} height={1000}
                       src={typeof product.images[0] === 'string' ? product.images[0] : "images/fallback-image.png"}
                       alt={product.name}
                       className="w-full h-full object-center object-cover"

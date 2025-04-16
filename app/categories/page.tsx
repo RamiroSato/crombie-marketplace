@@ -46,7 +46,7 @@ export default async function CategoriesPage() {
           >
             <div className="aspect-w-3 aspect-h-2 bg-gray-200">
               {category.imageUrl ? (
-                <Image
+                <Image width={1000} height={1000}
                   src={category.imageUrl}
                   alt={category.name}
                   className="w-full h-full object-center object-cover group-hover:opacity-90 transition-opacity"
