@@ -84,7 +84,11 @@ jobs:
         
       - name: Build and push image to Artifact Registry
         run: |
-          docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/mi-repo/crombie-marketplace:${{ github.sha }} .
+          docker build \
+            --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }} \
+            --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} \
+            --build-arg GCP_STORAGE_BUCKET=${{ secrets.GCP_STORAGE_BUCKET }} \
+            -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/mi-repo/crombie-marketplace:${{ github.sha }} .
           docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/mi-repo/crombie-marketplace:${{ github.sha }}
           
       - name: Deploy to Cloud Run
