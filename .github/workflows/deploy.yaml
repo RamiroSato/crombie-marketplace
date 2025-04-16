@@ -48,9 +48,11 @@ jobs:
       #   run: npm test
       #   env:
       #     DATABASE_URL: mysql://root:password@localhost:3306/crombie_marketplace_test
-        
+      
       - name: Build application
         run: npm run build
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
       
       # If tests and build pass, proceed to deployment (on main branch only)
       - name: Set up condition for deployment
