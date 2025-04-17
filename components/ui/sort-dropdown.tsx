@@ -36,7 +36,7 @@ export default function SortDropdown({ sortOptions, currentSort, baseUrl, search
     <select
       id="sort"
       name="sort"
-      className="block w-full rounded-md border-gray-300 py-1.5 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+      className="block w-full rounded-md border-gray-300 py-1.5 pl-3 pr-10 text-base focus:border-indigo-500 cursor-pointer focus:outline-none focus:ring-indigo-500 px-2 py-1 text-black sm:text-sm"
       onChange={handleSortChange}
       defaultValue={currentSort}
     >

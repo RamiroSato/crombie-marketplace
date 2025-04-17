@@ -1,6 +1,17 @@
 # Use Node.js 20 as base image
 FROM node:23-alpine AS base
 
+# Define build arguments
+ARG DATABASE_URL
+ARG JWT_SECRET
+ARG GCP_STORAGE_BUCKET
+
+# Set as environment variables for build process
+ENV DATABASE_URL=$DATABASE_URL
+ENV JWT_SECRET=$JWT_SECRET
+ENV GCP_STORAGE_BUCKET=$GCP_STORAGE_BUCKET
+
+
 # Install dependencies only when needed
 FROM base AS deps
 WORKDIR /usr/app
@@ -28,7 +39,7 @@ RUN npx prisma generate
 RUN npx prisma migrate deploy
 
 # Build app
-#RUN npm run build
+RUN npm run build
 
 # Expose the listening port
 EXPOSE 3000
@@ -38,4 +49,4 @@ EXPOSE 3000
 USER node
 
 # Launch app with PM2
-CMD [ "pm2-runtime", "start", "npm", "--", "run", "dev" ]
+CMD [ "pm2-runtime", "start", "npm", "--", "run", "start" ]
